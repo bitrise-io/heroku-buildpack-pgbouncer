@@ -45,6 +45,11 @@ query_wait_timeout = ${PGBOUNCER_QUERY_WAIT_TIMEOUT:-120}
 [databases]
 EOFEOF
 
+echo ""
+echo "pgbouncer.ini:"
+cat /app/vendored_pgbouncer/pgbouncer.ini
+echo ""
+
 for POSTGRES_URL in $POSTGRES_URLS
 do
   eval POSTGRES_URL_VALUE=\$$POSTGRES_URL
