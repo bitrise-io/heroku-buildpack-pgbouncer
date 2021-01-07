@@ -16,7 +16,7 @@ CACHE_DIR=$2
 BUILDPACK_DIR="$(dirname "$(dirname "$0")")"
 
 # vendor directories
-VENDORED_PGBOUNCER="vendor/pgbouncer"
+VENDORED_PGBOUNCER="vendored_pgbouncer"
 
 # vendor pgbouncer into the slug
 PATH="$BUILD_DIR/$VENDORED_PGBOUNCER/bin:$PATH"

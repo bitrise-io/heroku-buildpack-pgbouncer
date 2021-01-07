@@ -11,12 +11,12 @@ if [ -z "${SERVER_RESET_QUERY}" ] &&  [ "$POOL_MODE" == "session" ]; then
   SERVER_RESET_QUERY="DISCARD ALL;"
 fi
 
-cat >> /app/vendor/pgbouncer/pgbouncer.ini << EOFEOF
+cat >> /app/vendored_pgbouncer/pgbouncer.ini << EOFEOF
 [pgbouncer]
 listen_addr = 127.0.0.1
 listen_port = 6000
 auth_type = md5
-auth_file = /app/vendor/pgbouncer/users.txt
+auth_file = /app/vendored_pgbouncer/users.txt
 server_tls_sslmode = prefer
 server_tls_protocols = secure
 server_tls_ciphers = HIGH:!ADH:!AECDH:!LOW:!EXP:!MD5:!3DES:!SRP:!PSK:@STRENGTH
@@ -62,15 +62,15 @@ do
     export ${POSTGRES_URL}_PGBOUNCER=postgres://$DB_USER:$DB_PASS@127.0.0.1:6000/$CLIENT_DB_NAME
   fi
 
-  cat >> /app/vendor/pgbouncer/users.txt << EOFEOF
+  cat >> /app/vendored_pgbouncer/users.txt << EOFEOF
 "$DB_USER" "$DB_MD5_PASS"
 EOFEOF
 
-  cat >> /app/vendor/pgbouncer/pgbouncer.ini << EOFEOF
+  cat >> /app/vendored_pgbouncer/pgbouncer.ini << EOFEOF
 $CLIENT_DB_NAME= host=$DB_HOST dbname=$DB_NAME port=$DB_PORT
 EOFEOF
 
   let "n += 1"
 done
 
-chmod go-rwx /app/vendor/pgbouncer/*
+chmod go-rwx /app/vendored_pgbouncer/*
